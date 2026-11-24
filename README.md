@@ -40,22 +40,27 @@ tiny 0.01 SOL probe round trips on liquid curves until it is back on pace.
 Fully deterministic — no clock, no randomness, no I/O — so the two graded
 executions produce byte-identical action logs.
 
-## Backtest (dev window, local replay engine port)
+## Backtest (dev window, `grade-local` with the real harness)
 
 | | |
 |---|---|
-| Net PnL | **+11.834 SOL** |
-| Fills / coins / round trips | 146 / 46 / 46 |
-| Winning trips | 11 |
+| Net PnL | **+11.757 SOL** (return 1.176; 90% interval 0.46 .. 25.16 SOL) |
+| Fills / coins / round trips | 145 / 46 / 46 |
+| Winning trips | 11 (win rate 0.239) |
 | Max drawdown | 0.243 |
-| Net PnL without the 3 best coins | +2.993 SOL |
-| First half / second half | -1.236 / +13.070 SOL |
+| Net PnL without the 3 best coins | +2.92 SOL |
+| Net PnL at 2x fees | +10.850 SOL |
+| Guardrails | met (46 coins with a round trip of at least 0.01 SOL, drawdown ok) |
+| Determinism | L1 regrade reproduced byte for byte |
+| First half / second half (local sim) | -1.236 / +13.070 SOL |
 
-For comparison on the same window, the kit's pilot baselines lose money:
-momentum -9.39 SOL, mean reversion -4.02 SOL, launch sniper -0.49 SOL. The
-result leans on the window's slow completers (all seven sit in its second
-half), so the first half alone is negative; the filters, not any single coin,
-are what carry it — the PnL stays positive without the three best coins.
+The local replay-engine port agrees (+11.834 SOL, 146 fills). For comparison
+on the same window, the kit's pilot baselines lose money: momentum -9.39 SOL,
+mean reversion -4.02 SOL, launch sniper -0.49 SOL. The result leans on the
+window's slow completers (all seven sit in its second half), so the first
+half alone is negative; the filters, not any single coin, are what carry it —
+the PnL stays positive without the three best coins, and it survives doubled
+fees.
 
 ## Layout
 
