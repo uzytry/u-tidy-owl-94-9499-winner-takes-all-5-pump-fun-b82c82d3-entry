@@ -6,6 +6,16 @@ import { runBot } from './vendor/makefun-bot.ts';
 import { createStrategy, DEFAULT_PARAMS } from './strategy.ts';
 
 const bot = createStrategy(DEFAULT_PARAMS);
+
+// Startup line goes to stderr: stdout carries protocol replies only, so this cannot
+// disturb the action log. It names the ride the bot is configured to take.
+console.error(
+  `completion-rider: ride ${DEFAULT_PARAMS.rideRqSol} SOL, ` +
+    `filters ${DEFAULT_PARAMS.filterMinBuyers} buyers / ${DEFAULT_PARAMS.filterMinNetSol} SOL net / ` +
+    `${DEFAULT_PARAMS.maxAgeAtCross} slots, stake ${DEFAULT_PARAMS.stakeSol} SOL, ` +
+    `stop ${Math.round(DEFAULT_PARAMS.stopLoss * 100)}%`,
+);
+
 await runBot({
   ...bot,
   onDone(s, d) {
